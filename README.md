@@ -1,6 +1,9 @@
-# udn-cli
+# UDN CLI
 
-# example config (currently it has to be at this location: ~/.udn/config)
+# Example config 
+This config is required to be located at ~/.udn/config (I'll be adding an option to for configuring this).
+
+```
 [PROD]
 host = https://produdn.com
 fileservice_token = yourprodfileservicetoken
@@ -11,23 +14,29 @@ host = https://devudn.com
 fileservice_token = yourdevfilservicetoken
 udn_token = yourdevudntoken
 bucket = udnarchive-ci
+```
 
-# install
+# Installation
 * requires python 3.7
 * python setup.py install
 
-# example usage (upload single file)
-  udn upload <path_to_file> <seq_req_id> <patient_uuid> --test
+# Usage 
+## Upload a single file
+`udn upload <path_to_file> <seq_req_id> <patient_uuid> --test`
   
-# example usage (upload multiple files)
+## Upload multiple files
+`udn multi-upload <path_to_dir> --test`
+
 Each sequencing file, say for example test1.bam, must have an accompanying file test1.bam.json in the same directory. It should be formatted in the following way:
 
+```
 {
   "patient_uuid": "asdf-asdf-asdf-asdfsd",
   "seq_request_id": 42,
   "metadata": {}
 }
+```
 
-  udn multi-upload <path_to_dir> --test
+
   
   
