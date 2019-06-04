@@ -1,48 +1,9 @@
 import os
-import sys
 import time
-import threading
 import json
 import requests
-import hashlib
 from urllib.parse import urljoin
 import boto3
-
-
-class ProgressPercentage:
-    def __init__(self, filename):
-        self._filename = filename
-        self._size = float(os.path.getsize(filename))
-        self._seen_so_far = 0
-        self._lock = threading.Lock()
-
-    def __call__(self, bytes_amount):
-        with self._lock:
-            self._seen_so_far += bytes_amount
-            percentage = (self._seen_so_far / self._size) * 100
-            sys.stdout.write(
-                "\r%s  %s / %s  (%.2f%%)" % (
-                    self._filename, self._seen_so_far, self._size,
-                    percentage))
-            sys.stdout.flush()
-
-
-def calculate_s3_etag(file_path, chunk_size=25 * 1024 * 1024):
-    md5s = []
-
-    with open(file_path, 'rb') as fp:
-        while True:
-            data = fp.read(chunk_size)
-            if not data:
-                break
-            md5s.append(hashlib.md5(data))
-
-    if len(md5s) == 1:
-        return '"{}"'.format(md5s[0].hexdigest())
-
-    digests = b''.join(m.digest() for m in md5s)
-    digests_md5 = hashlib.md5(digests)
-    return '"{}-{}"'.format(digests_md5.hexdigest(), len(md5s))
 
 
 class UploadManager:
@@ -53,7 +14,7 @@ class UploadManager:
         try:
             start_time = time.time()
             (secret_key, access_key, session_token, folder_name,
-             location_id, fs_uuid, error) = self._get_upload_keys(self._config)
+             location_id, fs_uuid) = self._configure_upload()
 
             self._run_multipart_upload(
                 secret_key, access_key, session_token, folder_name)
@@ -80,9 +41,8 @@ class UploadManager:
     def __call__(self):
         return self.upload()
 
-    # TODO: rename this function
-    def _get_upload_keys(self, config):
-        udn_api_url = urljoin(config.host, 'api/sequence/file/')
+    def _configure_upload(self):
+        udn_api_url = urljoin(self._config.host, 'api/sequence/file/')
         header = self._get_udn_api_header()
         data = self._build_data_payload()
 
@@ -99,8 +59,16 @@ class UploadManager:
         fs_uuid = response.json().get('fs_uuid')
         error = response.json().get('error')
 
+        # The file already exists.
+        if response.status_code == 403:
+            raise Exception(error)
+
+        # Something went wrong registering the file with FS or the gateway.
+        if response.status_code == 500:
+            raise Exception(error)
+
         return (secret_key, access_key, session_token,
-                folder_name, location_id, fs_uuid, error)
+                folder_name, location_id, fs_uuid)
 
     def _get_udn_api_header(self):
         udn_auth = 'Token ' + self._config.udn_token
