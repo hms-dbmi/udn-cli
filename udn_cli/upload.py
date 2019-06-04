@@ -61,7 +61,9 @@ class UploadManager:
 
         # The file already exists.
         if response.status_code == 403:
-            raise Exception(error)
+            # Raise the 'exists' error only if the user didn't set --force.
+            if not self._config.force:
+                raise Exception(error)
 
         # Something went wrong registering the file with FS or the gateway.
         if response.status_code == 500:

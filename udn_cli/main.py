@@ -39,12 +39,14 @@ def main():
     single_upload_parser.add_argument('patient_uuid')
     single_upload_parser.add_argument('--metadata')
     single_upload_parser.add_argument('--test', action="store_true")
+    single_upload_parser.add_argument('--force', action="store_true")
     single_upload_parser.set_defaults(handler=handle_single_upload)
 
     # setup 'upload-dir' command
     multi_upload_parser = sub_parsers.add_parser('multi-upload')
     multi_upload_parser.add_argument('directory')
     multi_upload_parser.add_argument('--test', action="store_true")
+    multi_upload_parser.add_argument('--force', action="store_true")
     multi_upload_parser.set_defaults(handler=handle_multi_upload)
 
     # build config and run

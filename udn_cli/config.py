@@ -31,6 +31,7 @@ class SingleUploadConfig(Config):
         self.seq_request_id = args.seq_request_id
 
         # read in optional args
+        self.force = args.force
         self.metadata = {}
         if args.metadata:
             self.metadata = args.metadata
@@ -42,3 +43,6 @@ class MultiUploadConfig(Config):
 
         # read in positional args
         self.directory = args.directory
+
+        # read in optional args
+        self.force = args.force
