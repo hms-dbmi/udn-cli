@@ -22,7 +22,7 @@ class Config:
 
 class SingleUploadConfig(Config):
     def __init__(self, args):
-        super(SingleUploadConfig, self).__init__(args)
+        super().__init__(args)
 
         # read in positional args
         self.file_path = args.file_path
@@ -39,7 +39,7 @@ class SingleUploadConfig(Config):
 
 class MultiUploadConfig(Config):
     def __init__(self, args):
-        super(MultiUploadConfig, self).__init__(args)
+        super().__init__(args)
 
         # read in positional args
         self.directory = args.directory
