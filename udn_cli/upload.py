@@ -4,6 +4,7 @@ import time
 import threading
 import json
 import requests
+import hashlib
 from urllib.parse import urljoin
 import boto3
 
@@ -26,6 +27,24 @@ class ProgressPercentage:
             sys.stdout.flush()
 
 
+def calculate_s3_etag(file_path, chunk_size=25 * 1024 * 1024):
+    md5s = []
+
+    with open(file_path, 'rb') as fp:
+        while True:
+            data = fp.read(chunk_size)
+            if not data:
+                break
+            md5s.append(hashlib.md5(data))
+
+    if len(md5s) == 1:
+        return '"{}"'.format(md5s[0].hexdigest())
+
+    digests = b''.join(m.digest() for m in md5s)
+    digests_md5 = hashlib.md5(digests)
+    return '"{}-{}"'.format(digests_md5.hexdigest(), len(md5s))
+
+
 class UploadManager:
     def __init__(self, config):
         self._config = config
@@ -44,8 +63,13 @@ class UploadManager:
             end_time = time.time()
             upload_time = round(end_time - start_time, 2)
 
-            return 'SUCCESS: {file_name}, time: {upload_time} seconds'.format(
+            success_msg = (
+                'SUCCESS: {file_name} uploaded to {folder_name}, '
+                'time: {upload_time} seconds')
+
+            return success_msg.format(
                 file_name=self._file_name,
+                folder_name=folder_name,
                 upload_time=upload_time)
 
         except Exception as e:
@@ -105,11 +129,12 @@ class UploadManager:
             aws_secret_access_key=secret_key,
             aws_session_token=session_token)
 
-        twenty_five_mb = 1024 * 25
+        KB = 1024
+        MB = KB * KB
         transfer_config = boto3.s3.transfer.TransferConfig(
-            multipart_threshold=twenty_five_mb,
+            multipart_threshold=25 * MB,
             max_concurrency=10,
-            multipart_chunksize=twenty_five_mb,
+            multipart_chunksize=25 * MB,
             use_threads=True)
         transfer_handle = boto3.s3.transfer.S3Transfer(
             client=s3_client,
