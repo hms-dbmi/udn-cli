@@ -17,8 +17,14 @@ bucket = udnarchive-ci
 ```
 
 # Installation
-* requires python 3.7
-* python setup.py install
+* requires python 3
+* Although not required, it would be best to install the udn-cli using in a virtualenv.
+
+```
+$ git clone git@github.com:hms-dbmi/udn-cli.git
+$ cd udn-cli
+$ pip install .
+```
 
 # Usage 
 ## Upload a single file
