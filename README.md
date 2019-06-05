@@ -18,8 +18,8 @@ bucket = udnarchive-ci
 
 # Installation
 * requires python 3
-* Although not required, it would be best to install the udn-cli using in a virtualenv.
-
+* Although not required, it's recommended that you use virtualenv to manage the python 
+environment in which the udn-cli is installed.
 ```
 $ git clone git@github.com:hms-dbmi/udn-cli.git
 $ cd udn-cli
