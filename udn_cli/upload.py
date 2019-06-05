@@ -9,6 +9,7 @@ import boto3
 class UploadManager:
     def __init__(self, config):
         self._config = config
+        self._permissions = config.permissions
 
     def upload(self):
         try:
@@ -88,7 +89,8 @@ class UploadManager:
             'patient_uuid': self._patient_uuid,
             'sequence_id': self._seq_request_id,
             'bucket': self._config.bucket,
-            'metadata': self._metadata
+            'metadata': self._metadata,
+            'permissions': self._permissions
         }
 
     def _run_multipart_upload(

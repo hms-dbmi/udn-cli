@@ -11,8 +11,10 @@ class Config:
         config.read(config_path)
 
         section = 'PROD'
+        self.permissions = ['udn']
         if args.test:
             section = 'TEST'
+            self.permissions = ['udntest']
 
         self.host = config[section]['host']
         self.udn_token = config[section]['udn_token']
