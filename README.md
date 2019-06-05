@@ -15,12 +15,12 @@ This config is required to be located at `~/.udn/config`
 
 ```
 [PROD]
-host = https://fileservice.dbmi.hms.harvard.edu/
+host = https://gateway.undiagnosed.hms.harvard.edu/
 fileservice_token = yourprodfileservicetoken
 udn_token = yourprodudntoken
 bucket = udnarchive
 [TEST]
-host = http://fileservicedev.aws.dbmi.hms.harvard.edu/
+host = https://udndev.dbmi.hms.harvard.edu/
 fileservice_token = yourdevfilservicetoken
 udn_token = yourdevudntoken
 bucket = udnarchive-ci
