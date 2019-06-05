@@ -15,7 +15,7 @@ class UploadSingle:
 
 
 class UploadMultiple:
-    MAX_WORKERS = 2
+    MAX_WORKERS = 5
 
     def __init__(self, config):
         self._config = config

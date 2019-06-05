@@ -26,11 +26,12 @@ class UploadManager:
             upload_time = round(end_time - start_time, 2)
 
             success_msg = (
-                'SUCCESS: {file_name} uploaded to {folder_name}, '
+                'SUCCESS: {file_name} uploaded to {bucket}/{folder_name}, '
                 'time: {upload_time} seconds')
 
             return success_msg.format(
                 file_name=self._file_name,
+                bucket=self._config.bucket,
                 folder_name=folder_name,
                 upload_time=upload_time)
 

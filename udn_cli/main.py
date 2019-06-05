@@ -51,4 +51,7 @@ def main():
 
     # build config and run
     args = parser.parse_args()
-    args.handler(args)
+    if hasattr(args, 'handler'):
+        args.handler(args)
+    else:
+        parser.print_help()
