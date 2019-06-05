@@ -1,5 +1,15 @@
 # UDN CLI
 
+# Installation
+* requires python 3
+* Although not required, it's recommended that you use virtualenv to manage the python 
+environment in which the udn-cli is installed.
+```
+$ git clone git@github.com:hms-dbmi/udn-cli.git
+$ cd udn-cli
+$ pip install .
+```
+
 # Example config 
 This config is required to be located at ~/.udn/config (I'll be adding an option to for configuring this).
 
@@ -14,16 +24,6 @@ host = http://fileservicedev.aws.dbmi.hms.harvard.edu/
 fileservice_token = yourdevfilservicetoken
 udn_token = yourdevudntoken
 bucket = udnarchive-ci
-```
-
-# Installation
-* requires python 3
-* Although not required, it's recommended that you use virtualenv to manage the python 
-environment in which the udn-cli is installed.
-```
-$ git clone git@github.com:hms-dbmi/udn-cli.git
-$ cd udn-cli
-$ pip install .
 ```
 
 # Usage 
