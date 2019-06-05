@@ -5,12 +5,12 @@ This config is required to be located at ~/.udn/config (I'll be adding an option
 
 ```
 [PROD]
-host = https://produdn.com
+host = https://fileservice.dbmi.hms.harvard.edu/
 fileservice_token = yourprodfileservicetoken
 udn_token = yourprodudntoken
 bucket = udnarchive
 [TEST]
-host = https://devudn.com
+host = http://fileservicedev.aws.dbmi.hms.harvard.edu/
 fileservice_token = yourdevfilservicetoken
 udn_token = yourdevudntoken
 bucket = udnarchive-ci
