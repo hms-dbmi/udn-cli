@@ -11,7 +11,7 @@ $ pip install .
 ```
 
 ## Configuration
-This config is required to be located at ~/.udn/config (I'll be adding an option to for configuring this).
+This config is required to be located at `~/.udn/config`
 
 ```
 [PROD]
