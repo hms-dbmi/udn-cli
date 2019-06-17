@@ -1,4 +1,5 @@
 import os
+import json
 import configparser
 
 
@@ -35,8 +36,9 @@ class SingleUploadConfig(Config):
         # read in optional args
         self.force = args.force
         self.metadata = {}
+
         if args.metadata:
-            self.metadata = args.metadata
+            self.metadata = json.loads(args.metadata)
 
 
 class MultiUploadConfig(Config):
