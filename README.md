@@ -49,5 +49,6 @@ Each sequencing file, say for example test1.bam, must have an accompanying file 
 A new log file will be produced each time a udn-cli command is executed. They are named in the following way: `<command_name>-<YYYYMMDD>-<seconds>.log`. For example, `upload-20190603-1233322.log`.
 
 ### Options
+* `--bucket`: Upload files to a specific bucket.  Ask UDN CC for bucket options and guidance.
 * `--test`: The "TEST" section in the config file will be used instead of the "PROD" section.
 * `--force`: If the file that you're trying to upload already exists, the udn-cli will block the upload. You can override this behavior by setting the `--force` option. The existing data will not be overwritten, but the overriding file will now be the one referenced by the UDN gateway.
