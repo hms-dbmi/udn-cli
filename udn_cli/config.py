@@ -40,6 +40,9 @@ class SingleUploadConfig(Config):
         if args.metadata:
             self.metadata = json.loads(args.metadata)
 
+        if args.bucket:
+            self.bucket = args.bucket
+
 
 class MultiUploadConfig(Config):
     def __init__(self, args):
