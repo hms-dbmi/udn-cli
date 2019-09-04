@@ -3,7 +3,10 @@
 ## Installation
 * requires python 3
 * Although not required, it's recommended that you use virtualenv to manage the python 
-environment in which the udn-cli is installed.
+environment in which the udn-cli is installed. There's a 
+[good tutorial from RealPython here](https://realpython.com/python-virtual-environments-a-primer/#using-different-versions-of-python) 
+on using virtual environments and Python3.  A good way to 
+[install Python3 on MacOS is with Homebrew](https://docs.python-guide.org/starting/install3/osx/).   
 ```
 $ git clone git@github.com:hms-dbmi/udn-cli.git
 $ cd udn-cli
@@ -11,7 +14,9 @@ $ pip install .
 ```
 
 ## Configuration
-This config is required to be located at `~/.udn/config`
+This config is required to be located at `~/.udn/config`.  Tokens for UDN Gateway can be found on the API tab of both
+the production and development systems.  Tokens for FileService can be obtained by logging into 
+[production](https://fileservice.dbmi.hms.harvard.edu/) or [development](https//fileservicedev.aws.dbmi.hms.harvard.edu/)
 
 ```
 [PROD]

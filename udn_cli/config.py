@@ -30,8 +30,6 @@ class SingleUploadConfig(Config):
         # read in positional args
         self.file_path = args.file_path
         self.file_name = os.path.split(args.file_path)[-1]
-        self.patient_uuid = args.patient_uuid
-        self.seq_request_id = args.seq_request_id
 
         # read in optional args
         self.force = args.force

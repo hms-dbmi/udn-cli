@@ -35,8 +35,6 @@ def main():
     # setup 'upload' command
     single_upload_parser = sub_parsers.add_parser('upload', help='upload help')
     single_upload_parser.add_argument('file_path', help='Local path to file')
-    single_upload_parser.add_argument('seq_request_id', help='Sequence Request ID for file association')
-    single_upload_parser.add_argument('patient_uuid', help='Patient UUID for file association')
     single_upload_parser.add_argument('--bucket', help='S3 bucket for data storage')
     single_upload_parser.add_argument('--metadata',
                                       help='Any extra metadata to store with the file; Needs to be JSON format')
