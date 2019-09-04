@@ -29,21 +29,28 @@ class UploadManager:
                 'SUCCESS: {file_name} uploaded to {bucket}/{folder_name}, '
                 'time: {upload_time} seconds')
 
-            return success_msg.format(
+            message = success_msg.format(
                 file_name=self._file_name,
                 bucket=self._config.bucket,
                 folder_name=folder_name,
                 upload_time=upload_time)
 
+            print(message)
+            return message
+
         except Exception as e:
-            return 'FAILED: {file_name}, reason: {reason}'.format(
+            exception_message = 'FAILED: {file_name}, reason: {reason}'.format(
                 file_name=self._file_name,
                 reason=e)
+            print(exception_message)
+            return exception_message
 
     def __call__(self):
         return self.upload()
 
     def _configure_upload(self):
+        # manage file records on the UDN side but this API endpoint
+        # calls FileService to create the storage location in the cloud
         udn_api_url = urljoin(self._config.host, 'api/sequence/file/')
         header = self._get_udn_api_header()
         data = self._build_data_payload()
@@ -70,6 +77,9 @@ class UploadManager:
         # Something went wrong registering the file with FS or the gateway.
         if response.status_code == 500:
             raise Exception(error)
+
+        if response.status_code > 299:
+            print('Error: {error}'.format(error=response.json()['error']))
 
         return (secret_key, access_key, session_token,
                 folder_name, location_id, fs_uuid)
@@ -138,11 +148,17 @@ class UploadManager:
 class SingleUploadManager(UploadManager):
     def __init__(self, config):
         super().__init__(config)
+
         self._file_name = config.file_name
+
+        json_file_name = '{filename}.json'.format(filename=config.file_name)
+        with open(json_file_name) as json_file:
+            json_data = json.load(json_file)
+
         self._file_path = config.file_path
-        self._patient_uuid = config.patient_uuid
-        self._seq_request_id = config.seq_request_id
-        self._metadata = config.metadata
+        self._patient_uuid = json_data['patient_uuid']
+        self._seq_request_id = json_data['seq_request_id']
+        self._metadata = json_data['metadata']
 
 
 class MultiUploadManager(UploadManager):
