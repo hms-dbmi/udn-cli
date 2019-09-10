@@ -69,7 +69,7 @@ class UploadManager:
         error = response.json().get('error')
 
         # The file already exists.
-        if response.status_code == 403:
+        if response.status_code == 202:
             # Raise the 'exists' error only if the user didn't set --force.
             if not self._config.force:
                 raise Exception(error)
@@ -79,7 +79,7 @@ class UploadManager:
             raise Exception(error)
 
         if response.status_code > 299:
-            print('Error: {error}'.format(error=response.json()['error']))
+            print('Warning: {error}'.format(error=response.json()['error']))
 
         return (secret_key, access_key, session_token,
                 folder_name, location_id, fs_uuid)
@@ -99,6 +99,7 @@ class UploadManager:
             'filename': self._file_name,
             'patient_uuid': self._patient_uuid,
             'sequence_id': self._seq_request_id,
+            'site': self._site,
             'bucket': self._config.bucket,
             'metadata': self._metadata,
             'permissions': self._permissions
@@ -159,6 +160,7 @@ class SingleUploadManager(UploadManager):
         self._patient_uuid = json_data['patient_uuid']
         self._seq_request_id = json_data['seq_request_id']
         self._metadata = json_data['metadata']
+        self._site = json_data['site']
 
 
 class MultiUploadManager(UploadManager):

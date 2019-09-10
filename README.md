@@ -39,15 +39,24 @@ An example JSON file is below.
 The JSON file **must** include the patient UUID and the sequence request ID with the exact keys 
 as shown in the example. 
 
-All values should be strings. It can optionally include the `metadata` field which can be populated with extra 
-information but must be in JSON format.  
+All values should be strings or valid JSON  
 ```
 {
   "patient_uuid": "asdf-asdf-asdf-asdfsd",
   "seq_request_id": "42",
+  "site": "<your site>"
   "metadata": {}
 }
 ```
+
+Valid site values include:
+
+- `baylorseq`
+- `mcw`
+- `baylorrna`
+- `dukerna`
+- `stanfordrna`
+- `uclarna`
  
 ### Upload a single file
 `udn upload <path_to_file>`
