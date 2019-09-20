@@ -6,11 +6,13 @@
 environment in which the udn-cli is installed. There's a 
 [good tutorial from RealPython here](https://realpython.com/python-virtual-environments-a-primer/#using-different-versions-of-python) 
 on using virtual environments and Python3.  A good way to 
-[install Python3 on MacOS is with Homebrew](https://docs.python-guide.org/starting/install3/osx/).   
+[install Python3 on MacOS is with Homebrew](https://docs.python-guide.org/starting/install3/osx/).
+
+You can also follow the steps below to update an existing installation   
 ```
-$ git clone git@github.com:hms-dbmi/udn-cli.git
-$ cd udn-cli
-$ pip install .
+(env)$ git clone git@github.com:hms-dbmi/udn-cli.git
+(env)$ cd udn-cli
+(env)$ pip install .
 ```
 
 ## Configuration
@@ -70,6 +72,5 @@ A new log file will be produced each time a udn-cli command is executed. They ar
 `<command_name>-<YYYYMMDD>-<seconds>.log`. For example, `upload-20190603-1233322.log`.
 
 ### Options
-* `--bucket <bucket>`: Upload files to a specific bucket.  Ask UDN CC for bucket options and guidance.
 * `--test`: The "TEST" section in the config file will be used instead of the "PROD" section.
 * `--force`: If the file that you're trying to upload already exists, the udn-cli will block the upload. You can override this behavior by setting the `--force` option. The existing data will not be overwritten, but the overriding file will now be the one referenced by the UDN gateway.
