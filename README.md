@@ -53,12 +53,24 @@ All values should be strings or valid JSON
 
 Valid site values include:
 
-- `baylorseq`
-- `mcw`
-- `baylorrna`
-- `dukerna`
-- `stanfordrna`
-- `uclarna`
+- `baylorseq` : Baylor Sequencing
+- `mcw` : Hudson Alpha
+- `baylorrna` : Baylor (RNA Sequencing)
+- `dukerna` : Duke (RNA Sequencing)
+- `stanfordrna` : Stanford (RNA Sequencing)
+- `uclarna`: UCLA (RNA Sequencing)
+- `baylor` : Baylor College of Medicine
+- `harvard-affiliate` : BWH, Boston Children's, MGH
+- `chop-upenn` : Children's Hospital of Philadelphia and UPenn
+- `duke` : Duke Medical Center
+- `stanford` : Stanford Medical Center
+- `ucla` : UCLA Medical Center
+- `nih` : UDP at NIH
+- `miami` : University of Miami
+- `utah` : University of Utah
+- `uw-sch` : University of Washington and Seattle Children's Hospital
+- `vanderbilt` : Vanderbilt Medical Center
+- `wustl` : Washington University in St. Louis
  
 ### Upload a single file
 `udn upload <path_to_file>`
