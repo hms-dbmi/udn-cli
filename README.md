@@ -38,16 +38,16 @@ bucket = udnarchive-ci
 Each sequencing file (e.g. test1.bam) must have an accompanying JSON file (e.g. test1.bam.json) in the same directory. 
 An example JSON file is below. 
 
-The JSON file **must** include the patient UUID and the sequence request ID with the exact keys 
-as shown in the example. 
+The JSON file **must** include the patient UUID, the sequence request ID, site, and metadata as shown below.  Any extra 
+data you wish to store must be put in the metadata field. The metadata field can also be left blank.   
 
 All values should be strings or valid JSON  
 ```
 {
-  "patient_uuid": "asdf-asdf-asdf-asdfsd",
-  "seq_request_id": "42",
+  "patient_uuid": "<uuid string>",
+  "seq_request_id": "<id>",
   "site": "<your site>"
-  "metadata": {}
+  "metadata": {<valid json>}
 }
 ```
 
