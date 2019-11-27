@@ -10,15 +10,18 @@ on using virtual environments and Python3.  A good way to
 
 You can also follow the steps below to update an existing installation   
 ```
-(env)$ git clone git@github.com:hms-dbmi/udn-cli.git
+(env)$ git clone <either https or ssh link from github>
 (env)$ cd udn-cli
 (env)$ pip install .
 ```
 
 ## Configuration
-This config is required to be located at `~/.udn/config`.  Tokens for UDN Gateway can be found on the API tab of both
-the production and development systems.  Tokens for FileService can be obtained by logging into 
-[production](https://fileservice.dbmi.hms.harvard.edu/) or [development](https//fileservicedev.aws.dbmi.hms.harvard.edu/)
+This config is required to be located at `~/.udn/config` where `~` represents your home directory. 
+Tokens for UDN Gateway can be found on the API tab of both the production and development systems. 
+Tokens for FileService can be obtained by logging into 
+[production](https://fileservice.dbmi.hms.harvard.edu/) or 
+[development](https//fileservicedev.aws.dbmi.hms.harvard.edu/). 
+An example of this file is provided in this repo  as `config.example` for you to copy and edit with your own tokens. 
 
 ```
 [PROD]
@@ -48,6 +51,18 @@ All values should be strings or valid JSON
   "seq_request_id": "<id>",
   "site": "<your site>"
   "metadata": {<valid json>}
+}
+```
+
+The UDN Clinical Sites have requested that the following data be included in the metadata field.  This must be valid JSON.
+```
+{
+  ...
+  "metadata": {
+    "md5": "<md5 sum>",
+    "assembly": "<assembly info>",
+    "description": "<other details>"
+  }
 }
 ```
 
