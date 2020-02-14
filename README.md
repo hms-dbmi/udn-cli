@@ -74,18 +74,7 @@ Valid site values include:
 - `dukerna` : Duke (RNA Sequencing)
 - `stanfordrna` : Stanford (RNA Sequencing)
 - `uclarna`: UCLA (RNA Sequencing)
-- `baylor` : Baylor College of Medicine
-- `harvard-affiliate` : BWH, Boston Children's, MGH
-- `chop-upenn` : Children's Hospital of Philadelphia and UPenn
-- `duke` : Duke Medical Center
-- `stanford` : Stanford Medical Center
-- `ucla` : UCLA Medical Center
-- `nih` : UDP at NIH
-- `miami` : University of Miami
-- `utah` : University of Utah
-- `uw-sch` : University of Washington and Seattle Children's Hospital
-- `vanderbilt` : Vanderbilt Medical Center
-- `wustl` : Washington University in St. Louis
+
  
 ### Upload a single file
 `udn upload <path_to_file>`
