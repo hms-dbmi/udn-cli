@@ -1,0 +1,15 @@
+version: '3'
+services:
+  udncli:
+    build: ./
+    volumes:
+      - ./:/udn_cli/
+      - ./config_template:/root/.udn/config
+    env_file:
+      - docker_dev.env
+    command: sh -c "pip install -e . && udn upload test1.bam --test --force"
+networks:
+  default:
+    external:
+      name: udngateway_default
+    

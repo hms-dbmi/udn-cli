@@ -104,3 +104,18 @@ process for uploading to our development UDN Gateway server
 * `--force`: If the file that you're trying to upload already exists, the udn-cli will block the upload. You can 
 override this behavior by setting the `--force` option. The existing data will not be overwritten, but the overriding 
 file will now be the one referenced by the UDN gateway.
+
+
+
+# Docker Development
+
+If developing against the CLI and you want to use a Docker to isolate the install, simply run.
+
+```
+docker-compose up udncli
+```
+
+Required Setup
+- You need to fill out the configuration "config_template"
+- There needs to be an external docker network called 'udngateway_default', this gets created if you run the docker gateway stack
+- The .json file needs to be updated to have the seq_request_id relevant to the environment.

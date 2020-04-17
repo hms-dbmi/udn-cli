@@ -1,0 +1,15 @@
+[PROD]
+host = https://gateway.undiagnosed.hms.harvard.edu/
+fileservice_token = yourprodfileservicetoken
+udn_token = yourprodudntoken
+bucket = udnarchive
+[TEST]
+host = https://udndev.dbmi.hms.harvard.edu/
+fileservice_token = YOUR_DEV_TOKEN
+udn_token = YOUR_DEV_TOKEN
+bucket = udnarchive-ci
+[TEST_LOCAL]
+host = http://udngateway/
+fileservice_token = YOUR_DEV_TOKEN
+udn_token = YOUR_LOCAL_TOKEN
+bucket = udnarchive-ci
