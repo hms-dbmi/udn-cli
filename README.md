@@ -20,7 +20,7 @@ This config is required to be located at `~/.udn/config` where `~` represents yo
 Tokens for UDN Gateway can be found on the API tab of both the production and development systems. 
 Tokens for FileService can be obtained by logging into 
 [production](https://fileservice.dbmi.hms.harvard.edu/) or 
-[development](https//fileservicedev.aws.dbmi.hms.harvard.edu/). 
+[development](https://fileservicedev.aws.dbmi.hms.harvard.edu/). 
 An example of this file is provided in this repo  as `config.example` for you to copy and edit with your own tokens. 
 
 ```
@@ -49,7 +49,7 @@ All values should be strings or valid JSON
 {
   "patient_uuid": "<uuid string>",
   "seq_request_id": "<id>",
-  "site": "<your site>"
+  "site": "<your site>",
   "metadata": {<valid json>}
 }
 ```
