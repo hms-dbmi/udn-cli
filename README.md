@@ -42,7 +42,7 @@ Each sequencing file (e.g. test1.bam) must have an accompanying JSON file (e.g. 
 An example JSON file is below. 
 
 The JSON file **must** include the patient UUID, the sequence request ID, site, and metadata as shown below.  Any extra 
-data you wish to store must be put in the metadata field. The metadata field can also be left blank.   
+data you wish to store must be put in the metadata field (see below).
 
 All values should be strings or valid JSON  
 ```
@@ -54,14 +54,15 @@ All values should be strings or valid JSON
 }
 ```
 
-The UDN Clinical Sites have requested that the following data be included in the metadata field.  This must be valid JSON.
+The UDN requires that the following data be included in the metadata field: `assembly`, `coverage`, and `md5`. This tool will automatically add the `md5` value for you. Other fields such as `description` may also be included but are not required. This must be valid JSON.
 ```
 {
   ...
   "metadata": {
-    "md5": "<md5 sum>",
     "assembly": "<assembly info>",
-    "description": "<other details>"
+    "coverage": "<coverage info>",
+    "description": "<other details>",
+    "md5": "<md5 sum>",
   }
 }
 ```
@@ -74,6 +75,7 @@ Valid site values include:
 - `dukerna` : Duke (RNA Sequencing)
 - `stanfordrna` : Stanford (RNA Sequencing)
 - `uclarna`: UCLA (RNA Sequencing)
+- `externaldata`: External data upload
 
  
 ### Upload a single file

@@ -1,6 +1,7 @@
 import os
 import time
 import json
+import hashlib
 import requests
 from urllib.parse import urljoin
 import boto3
@@ -145,6 +146,35 @@ class UploadManager:
             raise Exception(
                 'Failed to mark the file has having been uploaded.')
 
+    def _validate_metadata(self, json_data):
+        if 'metadata' not in json_data:
+            exception_message = 'FAILED: {file_name}, reason: Provided JSON is missing metadata'.format(
+                file_name=self._file_name)
+            raise Exception(exception_message)
+
+        if 'assembly' not in json_data['metadata'] or not json_data['metadata']['assembly']:
+            exception_message = 'FAILED: {file_name}, reason: Provided JSON metadata must include the assembly field'.format(
+                file_name=self._file_name)
+            raise Exception(exception_message)
+
+        if 'coverage' not in json_data['metadata'] or not json_data['metadata']['coverage']:
+            exception_message = 'FAILED: {file_name}, reason: Provided JSON metadata must include the coverage field'.format(
+                file_name=self._file_name)
+            raise Exception(exception_message)
+
+    def _get_file_md5_hash(self, file_name, directory=None):
+        hash_md5 = hashlib.md5()
+
+        if directory:
+            path = os.path.json(directory, file_name)
+        else:
+            path = file_name
+
+        with open(path, 'rb') as f:
+            for chunk in iter(lambda: f.read(4096), b""):
+                hash_md5.update(chunk)
+
+        return hash_md5.hexdigest()
 
 class SingleUploadManager(UploadManager):
     def __init__(self, config):
@@ -155,6 +185,9 @@ class SingleUploadManager(UploadManager):
         json_file_name = '{filename}.json'.format(filename=config.file_name)
         with open(json_file_name) as json_file:
             json_data = json.load(json_file)
+
+        self._validate_metadata(json_data)
+        json_data['metadata']['md5'] = self._get_file_md5_hash(config.file_name)
 
         self._file_path = config.file_path
         self._patient_uuid = json_data['patient_uuid']
@@ -172,6 +205,9 @@ class MultiUploadManager(UploadManager):
 
         with open(metadata_file_path) as metadata_file:
             metadata = json.load(metadata_file)
+
+        self._validate_metadata(json_data)
+        json_data['metadata']['md5'] = self._get_file_md5_hash(file_name, config.directory)
 
         self._file_name = file_name
         self._file_path = os.path.join(config.directory, file_name)
