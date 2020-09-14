@@ -4,7 +4,7 @@ fileservice_token = < your fileservice production token >
 udn_token = < your udn gateway production token >
 bucket = udnarchive
 [TEST]
-host = https://udndev.dbmi.hms.harvard.edu/
+host = https://dev.undiagnosed.hms.harvard.edu/
 fileservice_token = < your fileservice development token >
 udn_token = < your udn gateway development token >
 bucket = udnarchive-ci
