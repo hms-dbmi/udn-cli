@@ -30,7 +30,7 @@ fileservice_token = yourprodfileservicetoken
 udn_token = yourprodudntoken
 bucket = udnarchive
 [TEST]
-host = https://udndev.dbmi.hms.harvard.edu/
+host = https://dev.undiagnosed.hms.harvard.edu/
 fileservice_token = yourdevfilservicetoken
 udn_token = yourdevudntoken
 bucket = udnarchive-ci
