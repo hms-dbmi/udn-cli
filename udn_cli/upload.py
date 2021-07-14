@@ -108,29 +108,34 @@ class UploadManager:
 
     def _run_multipart_upload(
             self, secret_key, access_key, session_token, folder_name):
-        s3_client = boto3.client(
-            's3',
-            aws_access_key_id=access_key,
-            aws_secret_access_key=secret_key,
-            aws_session_token=session_token)
+        try:
+            s3_client = boto3.client(
+                's3',
+                aws_access_key_id=access_key,
+                aws_secret_access_key=secret_key,
+                aws_session_token=session_token)
 
-        KB = 1024
-        MB = KB * KB
-        transfer_config = boto3.s3.transfer.TransferConfig(
-            multipart_threshold=25 * MB,
-            max_concurrency=10,
-            multipart_chunksize=25 * MB,
-            use_threads=True)
-        transfer_handle = boto3.s3.transfer.S3Transfer(
-            client=s3_client,
-            config=transfer_config)
+            KB = 1024
+            MB = KB * KB
+            transfer_config = boto3.s3.transfer.TransferConfig(
+                multipart_threshold=25 * MB,
+                max_concurrency=10,
+                multipart_chunksize=25 * MB,
+                use_threads=True)
+            transfer_handle = boto3.s3.transfer.S3Transfer(
+                client=s3_client,
+                config=transfer_config)
 
-        location_key = '{folder_name}/{file_name}'.format(
-            folder_name=folder_name,
-            file_name=self._file_name)
+            location_key = '{folder_name}/{file_name}'.format(
+                folder_name=folder_name,
+                file_name=self._file_name)
 
-        transfer_handle.upload_file(
-            self._file_path, self._config.bucket, location_key)
+            transfer_handle.upload_file(
+                self._file_path, self._config.bucket, location_key)
+        except Exception as exc:
+            err_msg = 'Failed to upload file to S3 with error: {exc}. Please try again.'.format(
+                exc=exc)
+            raise Exception(err_msg)
 
     def _mark_upload_as_complete(self, location_id, fs_uuid):
         udn_api_url = urljoin(
@@ -176,6 +181,7 @@ class UploadManager:
 
         return hash_md5.hexdigest()
 
+
 class SingleUploadManager(UploadManager):
     def __init__(self, config):
         super().__init__(config)
@@ -187,7 +193,8 @@ class SingleUploadManager(UploadManager):
             json_data = json.load(json_file)
 
         self._validate_metadata(json_data)
-        json_data['metadata']['md5'] = self._get_file_md5_hash(config.file_name)
+        json_data['metadata']['md5'] = self._get_file_md5_hash(
+            config.file_name)
 
         self._file_path = config.file_path
         self._patient_uuid = json_data['patient_uuid']
@@ -207,7 +214,8 @@ class MultiUploadManager(UploadManager):
             metadata = json.load(metadata_file)
 
         self._validate_metadata(json_data)
-        json_data['metadata']['md5'] = self._get_file_md5_hash(file_name, config.directory)
+        json_data['metadata']['md5'] = self._get_file_md5_hash(
+            file_name, config.directory)
 
         self._file_name = file_name
         self._file_path = os.path.join(config.directory, file_name)
