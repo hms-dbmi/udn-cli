@@ -38,7 +38,7 @@ bucket = udnarchive-ci
 
 ## Usage
 
-Each sequencing file (e.g. test1.bam) must have an accompanying JSON file (e.g. test1.bam.json) in the same directory. 
+Each sequencing file (e.g. test1.bam) must have an accompanying JSON file with the same base name and be located in the same directory (e.g. test1.bam.json). 
 An example JSON file is below. 
 
 The JSON file **must** include the patient UUID, the sequence request ID, site, and metadata as shown below.  Any extra 
