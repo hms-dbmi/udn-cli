@@ -4,7 +4,7 @@ setup(
     name='UDN-CLI',
     packages=['udn_cli'],
     install_requires=[
-        'urllib3==1.25.4',
+        'urllib3==1.26.5',
         'requests',
         'boto3'
     ],
